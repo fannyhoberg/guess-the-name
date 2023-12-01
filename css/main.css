@@ -1,0 +1,149 @@
+body {
+  background-color: #ffce21;
+  font-family: "Lato", sans-serif;
+  color: darkslategray;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* BANNER */
+.Banner {
+  width: 100%;
+  text-align: center;
+}
+
+.BannerCenter {
+  justify-content: center;
+  display: flex;
+}
+
+.BannerFont {
+  font-size: 3.5rem;
+}
+
+/* START PAGE */
+
+.sectionStart {
+  width: 100%;
+  text-align: center;
+  display: none;
+}
+
+.startChoiceGroup {
+  justify-content: center;
+  display: flex;
+}
+
+.startChoiceText {
+  font-size: 2rem;
+}
+
+.startButton {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 100%;
+  margin: 10px;
+  font-size: 20px;
+}
+
+/* RESULT PAGE */
+
+.sectionResult {
+  width: 100%;
+  text-align: center;
+  display: none;
+}
+
+.startResultGroup {
+  justify-content: center;
+  display: flex;
+}
+
+.startResultText {
+  font-size: 2rem;
+}
+
+/* SECTION 1 */
+.section1 {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* display: none; */
+}
+
+.imagesFrame {
+  padding: 10px;
+  width: 45%;
+  margin: 10px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.imagesFigure {
+  width: 70%;
+  margin: 0% 0% 0% 15%;
+  display: flex;
+  justify-content: center;
+}
+
+.imagesPicture {
+  width: 100%;
+  border-radius: 100%;
+}
+
+/* SECTION 2 */
+.section2 {
+  width: 100%;
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* display: none; */
+}
+
+.namesFrame {
+  margin-top: 10px;
+  width: 45%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.namesFigure {
+  background-color: beige;
+  width: 70%;
+  margin: 0% 0% 0% 15%;
+  border: 2px solid darkslategray;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+/* TABLET SCREEN*/
+@media screen and (min-width: 600px) {
+  .imagesFrame {
+    padding: 0px;
+    width: 23%;
+    margin: 0px;
+  }
+}
+
+/*DESKTOP*/
+@media screen and (min-width: 900px) {
+  .section1 {
+    margin-top: 20px;
+  }
+
+  .namesFrame {
+    width: 20%;
+  }
+
+  .namesFigure {
+    width: 70%;
+    margin-right: 50px;
+    margin-left: 50;
+  }
+}
