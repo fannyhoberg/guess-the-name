@@ -9,6 +9,10 @@ body {
   flex-wrap: wrap;
 }
 
+.hide {
+  display: none;
+}
+
 /* BANNER */
 .Banner {
   width: 100%;
@@ -29,7 +33,6 @@ body {
 .sectionStart {
   width: 100%;
   text-align: center;
-  display: none;
 }
 
 .startChoiceGroup {
@@ -54,7 +57,6 @@ body {
 .sectionResult {
   width: 100%;
   text-align: center;
-  display: none;
 }
 
 .startResultGroup {
@@ -75,23 +77,16 @@ body {
   /* display: none; */
 }
 
-.imagesFrame {
-  padding: 10px;
-  width: 45%;
-  margin: 10px;
-  text-align: center;
-  box-sizing: border-box;
-}
-
 .imagesFigure {
   width: 70%;
   margin: 0% 0% 0% 15%;
   display: flex;
   justify-content: center;
+  border-radius: 100%;
 }
 
 .imagesPicture {
-  width: 100%;
+  width: 50%;
   border-radius: 100%;
 }
 
