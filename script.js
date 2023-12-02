@@ -62,16 +62,24 @@ const renderGameSetup = () => {
   imgElement.src = match.image;
   imageEl.appendChild(imgElement);
 
-  // Rendera ut match.name
-  // nameEl.innerText = match.name;
-
-  // Rendera ut unmatch.name på alla namn div
+  // Rendera ut unmatch.name
   for (let i = 0; i < nameEl.length && i < unmatch.length; i++) {
     let unmatchPerson = unmatch[i];
     let boxForName = nameEl[i];
     let nameText = document.createElement("div");
     nameText.innerHTML = `<p>${unmatchPerson.name}</p>`;
     boxForName.appendChild(nameText);
+  }
+
+  // Rendera ut match.name
+  for (let i = 0; i < nameEl.length; i++) {
+    let currentBox = nameEl[i];
+    if (currentBox.textContent === "") {
+      let boxForName = nameEl[i];
+      let nameText = document.createElement("div");
+      nameText.innerHTML = `<p>${match.name}</p>`;
+      boxForName.appendChild(nameText);
+    }
   }
 
   //slumpa alla boxar på dess id
