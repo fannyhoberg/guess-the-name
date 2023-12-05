@@ -4,9 +4,17 @@ body {
   color: darkslategray;
 }
 
-.main {
+/* .main {
   display: flex;
   flex-wrap: wrap;
+} */
+
+.greenFrame {
+  border: 2px solid green;
+}
+
+.redFrame {
+  border: 2px solid red;
 }
 
 .hide {
@@ -71,33 +79,34 @@ body {
 /* SECTION 1 */
 .section1 {
   width: 100%;
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center; */
   /* display: none; */
 }
 
 .imagesFigure {
-  width: 70%;
+  /* width: 70%; */
   margin: 0% 0% 0% 15%;
   display: flex;
+  /* flex-wrap: wrap; */
   justify-content: center;
   border-radius: 100%;
 }
 
-.imagesPicture {
+/* .imagesPicture {
   width: 50%;
   border-radius: 100%;
-}
+} */
 
 /* SECTION 2 */
+
 .section2 {
   width: 100%;
   padding-top: 20px;
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  /* display: none; */
+  justify-content: center; */
 }
 
 .namesFrame {
@@ -107,7 +116,7 @@ body {
   box-sizing: border-box;
 }
 
-.namesFigure {
+.namesBox {
   background-color: beige;
   width: 70%;
   margin: 0% 0% 0% 15%;
@@ -119,11 +128,11 @@ body {
 
 /* TABLET SCREEN*/
 @media screen and (min-width: 600px) {
-  .imagesFrame {
+  /* .imagesFrame {
     padding: 0px;
     width: 23%;
     margin: 0px;
-  }
+  } */
 }
 
 /*DESKTOP*/
@@ -136,7 +145,7 @@ body {
     width: 20%;
   }
 
-  .namesFigure {
+  .namesBox {
     width: 70%;
     margin-right: 50px;
     margin-left: 50;

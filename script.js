@@ -1,23 +1,15 @@
 const sectionStartEl = document.querySelector(".sectionStart");
 const startButtonEl = document.querySelector(".startButton");
-const section1El = document.querySelector(".imagesFrame");
+const section1El = document.querySelector(".section1");
 const section2El = document.querySelector(".section2");
+const namesFrameEl = document.querySelector(".namesFrame");
+const sectionResultEl = document.querySelector(".sectionResult");
+const guessesEl = document.querySelector("#guesses");
 
-// eventlistener för klick på startsida
-startButtonEl.addEventListener("click", () => {
-  //hide button
-  sectionStartEl.classList.add("hide");
-  //sätt en timer med en händelse inuti
-  setTimeout(() => {
-    // visa spöket
-    // sectionTestEl.classList.remove("hide");
-
-    section1El.classList.remove("hide");
-    // section2El.classList.remove("hide");
-  }, 1000);
-});
-
-//SHUFFLING
+let newArray;
+let match;
+let unmatch;
+let total;
 
 // Fisher-Yates algorithm for array shuffling
 const shuffleArray = (array) => {
@@ -28,33 +20,88 @@ const shuffleArray = (array) => {
     array[j] = temp;
   }
 };
-
+// Slumpa array students (Fisher Yates shuffle)
 const shuffledStudents = [...students]; // clone `students` array
 shuffleArray(shuffledStudents); // shuffle the `shuffledStudents` array
 
-console.log(students);
-console.log(shuffledStudents);
+// eventlistener för klick på startsida
+startButtonEl.addEventListener("click", (e) => {
+  sectionStartEl.classList.add("hide");
+  setTimeout(() => {
+    section1El.classList.remove("hide");
+    section2El.classList.remove("hide");
+  }, 1000);
+  if (e.target.tagName === "BUTTON") {
+    if (e.target.id === "startButton1") {
+      console.log("Du klickade på knapp 1: ", e);
+      newArray = shuffledStudents.slice(0, 10);
+      total = 10;
+      console.log("Det är här newArray: ", newArray);
+      // match = newArray10.pop();
+      // console.log("Det är här match från klickevent: ", match);
+      // unmatch = newArray10.slice(0, 3);
+      // console.log("Det är här unmatch: ", unmatch);
+      renderGameSetup();
+    } else if (e.target.id === "startButton2") {
+      console.log("Du klickade på knapp 2: ", e);
+      newArray = shuffledStudents.slice(0, 20);
+      total = 20;
+      console.log("Det är här newArray: ", newArray);
+      // match = newArray20.pop();
+      // console.log("Det är här match: ", match);
+      // unmatch = newArray20.slice(0, 3);
+      // console.log("Det är här unmatch: ", unmatch);
+      renderGameSetup();
+    } else {
+      console.log("Du klickade på knapp 3: ", e);
+      // console.log("Det här är alla students shufflade: ", shuffledStudents);
+      newArray = shuffledStudents;
+      total = students.length;
+      console.log("Det är här newArray: ", newArray);
+      // console.log("Det är här match: ", match);
+      // unmatch = shuffledStudents.slice(0, 3);
+      // console.log("Det är här unmatch: ", unmatch);
+      renderGameSetup();
+    }
+  } else {
+    //ska lösa någon snygg escape/return här
+  }
+});
 
-// RENDERA ut game initial setup
+let correctGuesses = 0;
+//Clickevent för knappar med namn
+namesFrameEl.addEventListener("click", (e) => {
+  if (e.target.tagName === "BUTTON") {
+    if (e.target.innerText === match.name) {
+      console.log("Du klickade på rätt namn; ", e);
+      //Kolla om det är match
+      namesFrameEl.classList.add("greenFrame");
+      correctGuesses++;
+    } else {
+      //det blev fel, lägg på röd ram
+      namesFrameEl.classList.add("redFrame");
+    }
+  }
+  //ta bort match från array
+  newArray = newArray.filter(function (item) {
+    return item !== match;
+  });
+  console.log("Detta är newArray efter match blivit borttaget; ", newArray);
+  //shuffla listan igen innan render
+  shuffleArray(newArray);
+  renderGameSetup();
+});
 
-const nameEl = document.getElementsByClassName("namesFigure");
-// const box1 = document.getElementById("box-1");
+// RENDERA ut game setup
+const nameEl = document.getElementsByClassName("namesBox");
 const imageEl = document.getElementById("imagesFigure");
 
 const renderGameSetup = () => {
-  // Slumpa array students (Fisher Yates shuffle)
-
-  // Välj ut x antal från students array - lägg i variabel total
-  const newArray10 = shuffledStudents.slice(0, 10);
-  // console.log("Det är här newArray10: ", newArray10);
-
-  // Från total ska 1 object tas ut som rätt svar (id === name === image) och lägg i variabel match
-  const match = newArray10.pop();
-  console.log("Det är här match: ", match);
-
-  // Från total ska 3 name tas ut och lägg i variabel unmatch
-  const unmatch = newArray10.slice(0, 3);
-  console.log("Det är här unmatch: ", unmatch);
+  console.log("Det är här newArray från render: ", newArray);
+  match = newArray.pop();
+  console.log("Det är här match från render: ", match);
+  unmatch = newArray.slice(0, 3);
+  console.log("Det är här unmatch från render: ", unmatch);
 
   // Rendera ut match.image på bild div
   imageEl.innerHTML = "";
@@ -66,23 +113,30 @@ const renderGameSetup = () => {
   for (let i = 0; i < nameEl.length && i < unmatch.length; i++) {
     let unmatchPerson = unmatch[i];
     let boxForName = nameEl[i];
-    let nameText = document.createElement("div");
-    nameText.innerHTML = `<p>${unmatchPerson.name}</p>`;
+    let nameText = document.createElement("p");
+    nameText.innerText = `${unmatchPerson.name}`;
     boxForName.appendChild(nameText);
   }
-
   // Rendera ut match.name
   for (let i = 0; i < nameEl.length; i++) {
     let currentBox = nameEl[i];
     if (currentBox.textContent === "") {
       let boxForName = nameEl[i];
-      let nameText = document.createElement("div");
-      nameText.innerHTML = `<p>${match.name}</p>`;
+      let nameText = document.createElement("p");
+      nameText.innerText = `${match.name}`;
       boxForName.appendChild(nameText);
     }
   }
 
   //slumpa alla boxar på dess id
+
+  //spelet slut - visa resultat sida med score
+  if (newArray.length === 0) {
+    section1El.classList.add("hide");
+    section2El.classList.add("hide");
+    sectionResultEl.classList.remove("hide");
+    guessesEl.innerText = `${correctGuesses}/ ${total}`;
+  }
 };
 
-renderGameSetup();
+// renderGameSetup();

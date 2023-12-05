@@ -18,32 +18,13 @@
 
   <body>
     <main class="main">
+      <!--Titel-->
       <div class="Banner">
         <div class="BannerCenter">
           <h1 class="BannerFont">Who dis?</h1>
         </div>
       </div>
-      <!--Här är section för bild-->
-      <section class="section1">
-        <div id="imagesFigure"></div>
-      </section>
-      <!--Här är section för namn-->
-      <section class="section2">
-        <div class="namesFrame">
-          <div class="namesFigure" id="box-1"></div>
-        </div>
 
-        <div class="namesFrame">
-          <div class="namesFigure" id="box-2"></div>
-        </div>
-
-        <div class="namesFrame">
-          <div class="namesFigure" id="box-3"></div>
-        </div>
-        <div class="namesFrame">
-          <div class="namesFigure" id="box-4"></div>
-        </div>
-      </section>
       <!--Här är section för startsida-->
       <section class="sectionStart">
         <div class="startChoiceGroup">
@@ -51,22 +32,41 @@
             >Välj antal personer att gissa mellan</span
           >
         </div>
-        <div>
-          <button class="startButton">10</button>
-          <button class="startButton">20</button>
-          <button class="startButton">alla</button>
+        <div class="startButton">
+          <button id="startButton1">10</button>
+          <button id="startButton2">20</button>
+          <button id="startButton3">alla</button>
         </div>
       </section>
+
+      <!--Här är section för bild-->
+      <section class="section1 hide">
+        <div id="imagesFigure"></div>
+      </section>
+
+      <!--Här är section för namn-->
+      <section class="section2 hide">
+        <div class="namesFrame">
+          <button class="namesBox" id="box-1"></button>
+          <button class="namesBox" id="box-2"></button>
+          <button class="namesBox" id="box-3"></button>
+          <button class="namesBox" id="box-4"></button>
+        </div>
+      </section>
+
       <!--Här är section för resultatsida-->
       <section class="sectionResult hide">
         <div class="startResultGroup">
-          <span class="startResultText">Spelet är slut!</span>
+          <h2 class="startResultText">Spelet är slut!</h2>
         </div>
         <div>
-          <span>här visas resultatet</span>
+          <h2>Det här är ditt resultat:</h2>
+          <p id="guesses"></p>
         </div>
       </section>
     </main>
+
+    <!--Här är script-->
     <script src="students.js"></script>
     <script src="script.js"></script>
   </body>
