@@ -20,6 +20,7 @@ const shuffleArray = (array) => {
     array[j] = temp;
   }
 };
+
 // Slumpa array students (Fisher Yates shuffle)
 const shuffledStudents = [...students]; // clone `students` array
 shuffleArray(shuffledStudents); // shuffle the `shuffledStudents` array
@@ -35,32 +36,23 @@ startButtonEl.addEventListener("click", (e) => {
     if (e.target.id === "startButton1") {
       console.log("Du klickade på knapp 1: ", e);
       newArray = shuffledStudents.slice(0, 10);
+      shuffleArray(newArray);
       total = 10;
       console.log("Det är här newArray: ", newArray);
-      // match = newArray10.pop();
-      // console.log("Det är här match från klickevent: ", match);
-      // unmatch = newArray10.slice(0, 3);
-      // console.log("Det är här unmatch: ", unmatch);
       renderGameSetup();
     } else if (e.target.id === "startButton2") {
       console.log("Du klickade på knapp 2: ", e);
       newArray = shuffledStudents.slice(0, 20);
+      shuffleArray(newArray);
       total = 20;
       console.log("Det är här newArray: ", newArray);
-      // match = newArray20.pop();
-      // console.log("Det är här match: ", match);
-      // unmatch = newArray20.slice(0, 3);
-      // console.log("Det är här unmatch: ", unmatch);
       renderGameSetup();
     } else {
       console.log("Du klickade på knapp 3: ", e);
-      // console.log("Det här är alla students shufflade: ", shuffledStudents);
       newArray = shuffledStudents;
+      shuffleArray(newArray);
       total = students.length;
       console.log("Det är här newArray: ", newArray);
-      // console.log("Det är här match: ", match);
-      // unmatch = shuffledStudents.slice(0, 3);
-      // console.log("Det är här unmatch: ", unmatch);
       renderGameSetup();
     }
   } else {
@@ -72,13 +64,12 @@ let correctGuesses = 0;
 //Clickevent för knappar med namn
 namesFrameEl.addEventListener("click", (e) => {
   if (e.target.tagName === "BUTTON") {
-    if (e.target.innerText === match.name) {
-      console.log("Du klickade på rätt namn; ", e);
-      //Kolla om det är match
+    if (e.target.innerText === match.name || e.target.tagName === "P") {
+      console.log("Du klickade på RÄTT namn; ", e);
       namesFrameEl.classList.add("greenFrame");
       correctGuesses++;
     } else {
-      //det blev fel, lägg på röd ram
+      console.log("Du klickade på FEL namn; ", e);
       namesFrameEl.classList.add("redFrame");
     }
   }
@@ -86,7 +77,10 @@ namesFrameEl.addEventListener("click", (e) => {
   newArray = newArray.filter(function (item) {
     return item !== match;
   });
-  console.log("Detta är newArray efter match blivit borttaget; ", newArray);
+  console.log(
+    "Detta är newArray efter match blivit borttaget; ",
+    newArray.length
+  );
   //shuffla listan igen innan render
   shuffleArray(newArray);
   renderGameSetup();
@@ -98,9 +92,11 @@ const imageEl = document.getElementById("imagesFigure");
 
 const renderGameSetup = () => {
   console.log("Det är här newArray från render: ", newArray);
-  match = newArray.pop();
+  matchArray = newArray.slice(0, 1);
+  match = matchArray[0];
+  // match = newArray.pop();
   console.log("Det är här match från render: ", match);
-  unmatch = newArray.slice(0, 3);
+  unmatch = newArray.slice(1, 4);
   console.log("Det är här unmatch från render: ", unmatch);
 
   // Rendera ut match.image på bild div
@@ -109,26 +105,53 @@ const renderGameSetup = () => {
   imgElement.src = match.image;
   imageEl.appendChild(imgElement);
 
-  // Rendera ut unmatch.name
-  for (let i = 0; i < nameEl.length && i < unmatch.length; i++) {
-    let unmatchPerson = unmatch[i];
-    let boxForName = nameEl[i];
-    let nameText = document.createElement("p");
-    nameText.innerText = `${unmatchPerson.name}`;
-    boxForName.appendChild(nameText);
-  }
-  // Rendera ut match.name
-  for (let i = 0; i < nameEl.length; i++) {
-    let currentBox = nameEl[i];
-    if (currentBox.textContent === "") {
-      let boxForName = nameEl[i];
-      let nameText = document.createElement("p");
-      nameText.innerText = `${match.name}`;
-      boxForName.appendChild(nameText);
-    }
+  // // Rendera ut match.name på random knapp
+  const randomLocation = (max = 4) => {
+    return Math.ceil(Math.random() * max);
+  };
+
+  function renderCorrectName() {
+    let randomIndex = randomLocation();
+    let randomBoxId = "box-" + randomIndex;
+    let selectedBox = document.getElementById(randomBoxId);
+    selectedBox.innerHTML = `<p>${match.name}</p>`;
+
+    renderIncorrectNames();
   }
 
-  //slumpa alla boxar på dess id
+  function renderIncorrectNames() {
+    for (let i = 0; i < nameEl.length && i < unmatch.length; i++) {
+      let unmatchPerson = unmatch[i];
+      let button = nameEl[i];
+      if (button.innerText.trim() === "") {
+        button.innerHTML = `<p>${unmatchPerson.name}</p>`;
+      }
+    }
+  }
+  renderCorrectName();
+
+  // Rendera ut unmatch.name på lediga knappar
+  // for (let i = 0; i < nameEl.length && i < unmatch.length; i++) {
+  //   let unmatchPerson = unmatch[i];
+  //   let boxForName = nameEl[i];
+  //   nameEl.innerHTML = "";
+
+  //   if (boxForName.textContent === "") {
+  //     let nameText = document.createElement("p");
+  //     nameText.innerText = `${unmatchPerson.name}`;
+  //     boxForName.appendChild(nameText);
+  //   }
+  // }
+  // // Rendera ut match.name
+  // for (let i = 0; i < nameEl.length; i++) {
+  //   let currentBox = nameEl[i];
+  //   if (currentBox.textContent === "") {
+  //     let boxForName = nameEl[i];
+  //     let nameText = document.createElement("p");
+  //     nameText.innerText = `${match.name}`;
+  //     boxForName.appendChild(nameText);
+  //   }
+  // }
 
   //spelet slut - visa resultat sida med score
   if (newArray.length === 0) {
