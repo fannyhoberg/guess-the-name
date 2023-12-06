@@ -10,11 +10,11 @@ body {
 } */
 
 .greenFrame {
-  border: 2px solid green;
+  color: green;
 }
 
 .redFrame {
-  border: 2px solid red;
+  color: red;
 }
 
 .hide {
@@ -53,11 +53,13 @@ body {
 }
 
 .startButton {
-  width: 5rem;
-  height: 5rem;
-  border-radius: 100%;
-  margin: 10px;
-  font-size: 20px;
+  margin-top: 10px;
+  width: 50%;
+  margin: 0% 0% 0% 25%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
 }
 
 /* RESULT PAGE */
@@ -79,60 +81,69 @@ body {
 /* SECTION 1 */
 .section1 {
   width: 100%;
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: center; */
-  /* display: none; */
 }
 
 .imagesFigure {
-  /* width: 70%; */
   margin: 0% 0% 0% 15%;
   display: flex;
-  /* flex-wrap: wrap; */
-  justify-content: center;
-  border-radius: 100%;
 }
 
-/* .imagesPicture {
+img {
   width: 50%;
   border-radius: 100%;
-} */
+  justify-content: center;
+  text-align: center;
+  margin: 0% 0% 0% 25%;
+}
 
 /* SECTION 2 */
 
 .section2 {
   width: 100%;
   padding-top: 20px;
-  /* display: flex;
-  flex-wrap: wrap;
-  justify-content: center; */
 }
 
 .namesFrame {
   margin-top: 10px;
-  width: 45%;
+  width: 70%;
+  margin: 0% 0% 0% 15%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   text-align: center;
-  box-sizing: border-box;
+}
+
+#feedback {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+button {
+  background-color: beige;
+  border-radius: 15px;
+  width: 70%;
+  margin: 5px;
 }
 
 .namesBox {
-  background-color: beige;
-  width: 70%;
-  margin: 0% 0% 0% 15%;
-  border: 2px solid darkslategray;
-  border-radius: 15px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
 /* TABLET SCREEN*/
 @media screen and (min-width: 600px) {
-  /* .imagesFrame {
-    padding: 0px;
-    width: 23%;
-    margin: 0px;
-  } */
+  .namesFrame {
+    flex-wrap: nowrap;
+  }
+
+  .startButton {
+    flex-wrap: nowrap;
+  }
 }
 
 /*DESKTOP*/
@@ -141,13 +152,12 @@ body {
     margin-top: 20px;
   }
 
-  .namesFrame {
-    width: 20%;
+  img {
+    width: 40%;
+    margin: 0% 0% 0% 30%;
   }
 
-  .namesBox {
-    width: 70%;
-    margin-right: 50px;
-    margin-left: 50;
+  button {
+    margin: 10px;
   }
 }
