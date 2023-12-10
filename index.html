@@ -27,38 +27,41 @@
 
       <!--Här är section för startsida-->
       <section class="sectionStart">
-        <div class="startChoiceGroup">
-          <span class="startChoiceText"
-            >Välj antal personer att gissa mellan</span
-          >
+        <div class="headingGroup">
+          <h2 class="headingText">Välj antal personer att gissa mellan</h2>
         </div>
         <div class="startButton">
-          <button id="startButton1">10</button>
-          <button id="startButton2">20</button>
-          <button id="startButton3">alla</button>
+          <button id="startButton1" class="startButtons">10</button>
+          <button id="startButton2" class="startButtons">20</button>
+          <button id="startButton3" class="startButtons">alla</button>
         </div>
       </section>
 
       <!--Här är section för bild-->
-      <section class="section1 hide">
-        <div id="imagesFigure"></div>
-      </section>
-
-      <!--Här är section för namn-->
-      <section class="section2 hide">
-        <div class="namesFrame">
-          <button class="namesBox" id="box-1"></button>
-          <button class="namesBox" id="box-2"></button>
-          <button class="namesBox" id="box-3"></button>
-          <button class="namesBox" id="box-4"></button>
+      <section>
+        <div class="section1 hide">
+          <div id="imagesFigure"></div>
+          <div class="headingGroup">
+            <h3 class="headingText">Klicka på rutan med rätt namn</h3>
+          </div>
         </div>
-        <div id="feedback"></div>
+
+        <!--Här är section för namn-->
+        <div class="section2 hide">
+          <div class="namesFrame">
+            <button class="namesBox" id="1"></button>
+            <button class="namesBox" id="2"></button>
+            <button class="namesBox" id="3"></button>
+            <button class="namesBox" id="4"></button>
+          </div>
+          <div id="feedback"></div>
+        </div>
       </section>
 
       <!--Här är section för resultatsida-->
       <section class="sectionResult hide">
-        <div class="startResultGroup">
-          <h2 class="startResultText">Spelet är slut!</h2>
+        <div class="headingGroup">
+          <h2 class="headingText">Spelet är slut!</h2>
         </div>
         <div>
           <h2>Det här är ditt resultat:</h2>

@@ -1,8 +1,10 @@
 const sectionStartEl = document.querySelector(".sectionStart");
-const startButtonEl = document.querySelector(".startButton");
+// const startButtonEl = document.querySelector(".startButton");
+const startButtonsEl = document.querySelectorAll(".startButtons");
 const section1El = document.querySelector(".section1");
 const section2El = document.querySelector(".section2");
-const namesFrameEl = document.querySelector(".namesFrame");
+// const namesFrameEl = document.querySelector(".namesFrame");
+const guessButtons = document.querySelectorAll(".namesBox");
 const sectionResultEl = document.querySelector(".sectionResult");
 const guessesEl = document.querySelector("#guesses");
 const feedbackEl = document.querySelector("#feedback");
@@ -23,52 +25,52 @@ const shuffleArray = (array) => {
   }
 };
 
-// Slumpa array students (Fisher Yates shuffle)
-const shuffledStudents = [...students]; // clone `students` array
-shuffleArray(shuffledStudents); // shuffle the `shuffledStudents` array
+//skapa en kopia av students och shuffla
+const shuffledStudents = [...students];
+shuffleArray(shuffledStudents);
 
 // eventlistener för klick på startsida
-startButtonEl.addEventListener("click", (e) => {
-  sectionStartEl.classList.add("hide");
-  setTimeout(() => {
-    section1El.classList.remove("hide");
-    section2El.classList.remove("hide");
-  }, 1000);
-  if (e.target.tagName === "BUTTON") {
-    if (e.target.id === "startButton1") {
-      newArray = shuffledStudents.slice(0, 10);
-      restArray = shuffledStudents.slice(11, 17);
-      shuffleArray(newArray);
-      total = 10;
-      console.log("Det är här newArray: ", newArray);
-      renderGameSetup();
-    } else if (e.target.id === "startButton2") {
-      newArray = shuffledStudents.slice(0, 20);
-      restArray = shuffledStudents.slice(21, 27);
-      shuffleArray(newArray);
-      total = 20;
-      console.log("Det är här newArray: ", newArray);
-      renderGameSetup();
-    } else {
-      newArray = shuffledStudents;
-      restArray = shuffledStudents.slice(0, 20);
-      shuffleArray(newArray);
-      total = shuffledStudents.length;
-      console.log("Det är här newArray: ", newArray);
-      renderGameSetup();
+startButtonsEl.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    sectionStartEl.classList.add("hide");
+    setTimeout(() => {
+      section1El.classList.remove("hide");
+      section2El.classList.remove("hide");
+    }, 1000);
+    if (e.target.tagName === "BUTTON") {
+      if (e.target.id === "startButton1") {
+        newArray = shuffledStudents.slice(0, 10);
+        restArray = shuffledStudents.slice(11, 17);
+        shuffleArray(newArray);
+        total = 10;
+        console.log("Det är här newArray: ", newArray);
+        renderGameSetup();
+      } else if (e.target.id === "startButton2") {
+        newArray = shuffledStudents.slice(0, 20);
+        restArray = shuffledStudents.slice(21, 27);
+        shuffleArray(newArray);
+        total = 20;
+        console.log("Det är här newArray: ", newArray);
+        renderGameSetup();
+      } else {
+        newArray = shuffledStudents;
+        restArray = shuffledStudents.slice(0, 40);
+        shuffleArray(newArray);
+        total = shuffledStudents.length;
+        console.log("Det är här newArray: ", newArray);
+        renderGameSetup();
+      }
     }
-  } else {
-    //vad händer när man klickar utanför?
-  }
+  });
 });
 
 const correctGuessColor = () => {
-  feedbackEl.className = "greenFrame";
+  feedbackEl.className = "correctGuess";
   feedbackEl.innerHTML = `<p>Du gissade rätt!</p>`;
 };
 
 const incorrectGuessColor = () => {
-  feedbackEl.className = "redFrame";
+  feedbackEl.className = "wrongGuess";
   feedbackEl.innerHTML = `<p>Du gissade fel!</p>`;
 };
 
@@ -81,44 +83,54 @@ let correctGuesses = 0;
 let clickCount = 0;
 
 //Clickevent för knappar med namn
-namesFrameEl.addEventListener("click", (e) => {
-  if (e.target.tagName === "BUTTON") {
-    if (e.target.innerText === match.name || e.target.tagName === "P") {
-      console.log("Du klickade på RÄTT namn; ", e);
-      correctGuessColor();
-      // namesFrameEl.classList.add("greenFrame");
-      correctGuesses++;
-    } else {
-      console.log("Du klickade på FEL namn; ", e);
-      incorrectGuessColor();
+
+guessButtons.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    if (e.target.tagName === "BUTTON" || e.target.tagName === "P") {
+      if (e.target.innerText === match.name) {
+        console.log("Du klickade på RÄTT namn; ", e);
+        correctGuessColor();
+        correctGuesses++;
+      } else {
+        console.log("Du klickade på FEL namn; ", e);
+        incorrectGuessColor();
+      }
     }
-  }
 
-  newArray = newArray.filter((item) => {
-    return item !== match;
+    newArray = newArray.filter((item) => {
+      return item !== match;
+    });
+
+    clickCount++;
+    console.log("Antal klick: ", clickCount);
+
+    if (clickCount === total) {
+      setTimeout(() => {
+        section1El.classList.add("hide");
+        section2El.classList.add("hide");
+        sectionResultEl.classList.remove("hide");
+        guessesEl.innerText = `${correctGuesses} / ${total}`;
+      }, 1000);
+    }
+
+    shuffleArray(newArray);
+
+    if (clickCount < total) {
+      setTimeout(() => {
+        renderGameSetup();
+      }, 1000);
+    }
   });
-
-  clickCount++;
-
-  if (clickCount === total) {
-    section1El.classList.add("hide");
-    section2El.classList.add("hide");
-    sectionResultEl.classList.remove("hide");
-    guessesEl.innerText = `${correctGuesses}/ ${total}`;
-  }
-
-  shuffleArray(newArray);
-
-  setTimeout(() => {
-    renderGameSetup();
-  }, 1000);
 });
 
-// RENDERA ut game setup
 const nameEl = document.getElementsByClassName("namesBox");
 const imageEl = document.getElementById("imagesFigure");
 
+// rendera ut game setup
 const renderGameSetup = () => {
+  //ta bort feedback innan nästa omgång
+  removeFeedback();
+
   matchArray = newArray.slice(0, 1);
   match = matchArray[0];
   unmatch = newArray.slice(1, 4);
@@ -127,48 +139,46 @@ const renderGameSetup = () => {
   console.log("Det är här newArray från render: ", newArray);
   console.log("Det är här restArray från render: ", restArray);
 
-  //ta bort grön/röd färg innan nästa omgång
-  removeFeedback();
-
-  // Rendera ut match.image på bild div
+  // rendera ut image
   imageEl.innerHTML = "";
   const imageBox = document.createElement("img");
   imageBox.setAttribute("src", match.image);
   imageEl.append(imageBox);
 
-  // Rendera ut namen på random knappar
-  const randomLocation = (max = 4) => {
-    return Math.ceil(Math.random() * max);
-  };
+  // rendera ut namn på knappar
 
-  function renderNameToButton() {
+  //OBS behöver detta ligga inuti en function???
+  const renderNameToButton = () => {
     for (let i = 1; i <= 4; i++) {
-      let buttonBoxId = "box-" + i;
+      let buttonBoxId = i;
       let button = document.getElementById(buttonBoxId);
       button.innerHTML = "";
     }
 
-    let buttonNames = unmatch.map((person) => person.name);
+    let buttonNames = unmatch.map((person) => {
+      return person.name;
+    });
     buttonNames.push(match.name);
     shuffleArray(buttonNames);
 
     for (let i = 0; i < buttonNames.length; i++) {
-      let buttonBoxId = "box-" + (i + 1);
+      let buttonBoxId = i + 1;
       let button = document.getElementById(buttonBoxId);
       button.innerHTML = `<p>${buttonNames[i]}</p>`;
     }
 
     for (let i = 1; i <= 4; i++) {
-      let buttonBoxId = "box-" + i;
+      let buttonBoxId = i;
       let button = document.getElementById(buttonBoxId);
 
       if (button.innerHTML === "") {
         if (restArray.length > 0) {
           let restObject = restArray.shift();
+          console.log("detta är restobject name ", restObject.name);
           button.innerHTML = `<p>${restObject.name}</p>`;
         }
       }
     }
-  }
+  };
   renderNameToButton();
 };

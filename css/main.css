@@ -9,11 +9,11 @@ body {
   flex-wrap: wrap;
 } */
 
-.greenFrame {
+.correctGuess {
   color: green;
 }
 
-.redFrame {
+.wrongGuess {
   color: red;
 }
 
@@ -43,13 +43,13 @@ body {
   text-align: center;
 }
 
-.startChoiceGroup {
+.headingGroup {
   justify-content: center;
   display: flex;
 }
 
-.startChoiceText {
-  font-size: 2rem;
+.headingText {
+  font-size: 1.5rem;
 }
 
 .startButton {
@@ -69,14 +69,14 @@ body {
   text-align: center;
 }
 
-.startResultGroup {
+/* .startResultGroup {
   justify-content: center;
   display: flex;
 }
 
 .startResultText {
   font-size: 2rem;
-}
+} */
 
 /* SECTION 1 */
 .section1 {
@@ -115,6 +115,7 @@ img {
 
 #feedback {
   margin-top: 10px;
+  margin-bottom: 60px;
   width: 100%;
   display: flex;
   justify-content: center;
