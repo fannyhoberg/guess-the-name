@@ -4,21 +4,24 @@ body {
   color: darkslategray;
 }
 
-/* .main {
-  display: flex;
-  flex-wrap: wrap;
-} */
+.hide {
+  display: none;
+}
 
+button {
+  background-color: beige;
+  border-radius: 15px;
+  width: 70%;
+  margin: 3px;
+}
+
+/* FEEDBACK */
 .correctGuess {
   color: green;
 }
 
 .wrongGuess {
   color: red;
-}
-
-.hide {
-  display: none;
 }
 
 /* BANNER */
@@ -36,26 +39,25 @@ body {
   font-size: 3.5rem;
 }
 
-/* START PAGE */
-
-.sectionStart {
-  width: 100%;
-  text-align: center;
-}
-
 .headingGroup {
   justify-content: center;
   display: flex;
 }
 
 .headingText {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+}
+
+/* START PAGE */
+.sectionStart {
+  width: 100%;
+  text-align: center;
 }
 
 .startButton {
   margin-top: 10px;
-  width: 50%;
-  margin: 0% 0% 0% 25%;
+  width: 30%;
+  margin: 0% 0% 0% 35%;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -63,20 +65,10 @@ body {
 }
 
 /* RESULT PAGE */
-
 .sectionResult {
   width: 100%;
   text-align: center;
 }
-
-/* .startResultGroup {
-  justify-content: center;
-  display: flex;
-}
-
-.startResultText {
-  font-size: 2rem;
-} */
 
 /* SECTION 1 */
 .section1 {
@@ -89,18 +81,16 @@ body {
 }
 
 img {
-  width: 50%;
+  width: 40%;
   border-radius: 100%;
   justify-content: center;
   text-align: center;
-  margin: 0% 0% 0% 25%;
+  margin: 0% 0% 0% 30%;
 }
 
 /* SECTION 2 */
-
 .section2 {
   width: 100%;
-  padding-top: 20px;
 }
 
 .namesFrame {
@@ -121,13 +111,6 @@ img {
   justify-content: center;
   flex-wrap: wrap;
   text-align: center;
-}
-
-button {
-  background-color: beige;
-  border-radius: 15px;
-  width: 70%;
-  margin: 5px;
 }
 
 .namesBox {
@@ -154,11 +137,7 @@ button {
   }
 
   img {
-    width: 40%;
-    margin: 0% 0% 0% 30%;
-  }
-
-  button {
-    margin: 10px;
+    width: 25%;
+    margin: 0% 0% 0% 37%;
   }
 }
