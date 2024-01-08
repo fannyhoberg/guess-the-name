@@ -140,9 +140,9 @@ const renderGameSetup = () => {
     shuffleArray(buttonNames);
 
     for (let i = 0; i < buttonNames.length; i++) {
-      let buttonBoxId = i + 1;
+      let buttonBoxId = `button-${i + 1}`;
       let button = document.getElementById(buttonBoxId);
-      button.innerHTML = `<p>${buttonNames[i]}</p>`;
+      button.innerText = `${buttonNames[i]}`;
     }
   };
   renderNameToButton();
@@ -154,7 +154,7 @@ let clickCount = 0;
 //Eventlistener för knappar med namn
 guessButtons.forEach((button) => {
   button.addEventListener("click", (e) => {
-    if (e.target.tagName === "BUTTON" || e.target.tagName === "P") {
+    if (e.target.tagName === "BUTTON") {
       if (e.target.innerText === match.name) {
         correctGuess();
         correctGuesses++;
